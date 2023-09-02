@@ -1,0 +1,14 @@
+---
+  - hosts: app
+    gather_facts: false
+    become: yes
+    tasks:
+    - apt:
+       name: "{{item}}"
+       state: present
+      loop:
+          - git
+          - wget
+          - pip3
+          - tree
+          - vim

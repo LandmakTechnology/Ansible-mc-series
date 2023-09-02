@@ -1,0 +1,19 @@
+---
+ - hosts: group1
+   become: yes
+   tasks:
+      - yum:
+         name: git
+         state: present
+      - yum:
+         name: wget
+         state: present
+      - yum:
+         name: pip3
+         state: present
+      - yum:
+         name: tree
+         state: present
+      - yum:
+         name: vim
+         state: present

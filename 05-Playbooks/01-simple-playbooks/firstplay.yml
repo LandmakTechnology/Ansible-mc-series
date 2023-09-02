@@ -1,0 +1,19 @@
+---
+ - hosts: localhost
+   tasks:
+   - debug:
+      msg: 'This is the day'
+...
+
+---
+ - name: httpd
+   host: db
+   tasks:
+   - name: Install httpd
+     apt:
+      name: httpd
+      state: present
+   - name: Install wget
+     apt:
+      name: wget
+      state: present

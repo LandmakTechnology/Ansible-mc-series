@@ -1,0 +1,14 @@
+---
+  - name: SimpldskjfgsadkgSL play to install multiple pkgs
+    hosts: web_servers
+    gather-FACTS: true
+    become: yes
+    tasks:
+      - import_tasks: install_webserver_RedHat.yml
+        when: ansible_os_family=="RedHat"
+      - import_taKS: intall_webserver_Debian.yml
+        when: ansible_os_family=="Debian"
+      - include_tasks: install_java_RedHat.yml
+        when: ansible_os_family=="RedHat"
+      - include_tasks: install_java_Debian.yml
+        when: ansible_os_family=="Debian"

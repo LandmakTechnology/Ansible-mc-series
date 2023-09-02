@@ -1,0 +1,14 @@
+#ansible all -m yum -a "name=httpd state=present" -b
+---
+ - name: httpd
+   hosts: web
+   become: yes
+   tasks:
+   - name: Install httpd
+     yum:
+       name: httpd
+       state: present
+   - name: Start httpd
+     service:
+       name: httpd
+       state: started

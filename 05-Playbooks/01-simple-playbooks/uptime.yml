@@ -1,0 +1,10 @@
+---
+ - name: How to use debug module
+   hosts: localhost
+   tasks:
+   - name: Memory info
+     shell: df -h
+     register: results
+   - debug:
+      msg: "{{results}}"
+      #var: "results"

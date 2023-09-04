@@ -1,0 +1,7 @@
+---
+  - hosts: tomcat_worker
+    tasks:
+      - name: Copy artifacts to tomcat server
+        copy:
+          src: artifact/*.war
+          dest: /usr/local/latest/webapps/

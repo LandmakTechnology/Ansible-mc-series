@@ -1,0 +1,99 @@
+- hosts: jenkins_worker
+  become: yes
+  become_user: root
+  tasks:
+     - name: update
+       shell: yum update -y
+
+     - name: install wget, git and java
+       yum:
+         name: "{{item}}"
+         state: present
+       loop:
+       - wget
+       - git
+       - java-1.8.0-openjdk
+       
+
+     - name: install jenkins repo
+       shell: wget -O /etc/yum.repos.d/jenkins.repo \
+              https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+     - name: import jenkins key
+       shell: rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key   
+
+     - name: upgrade
+       shell: yum upgrade
+
+     #https://aws.amazon.com/premiumsupport/knowledge-center/ec2-enable-epel/
+     - name: Install epel release
+       shell: yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+       tags:
+        - xyz
+
+     - name: Install jenkins
+       yum:
+         name: jenkins
+         state: present
+
+     - name: Change jenkins users shell
+       user:
+         name: jenkins
+         shell: /bin/bash
+
+
+     - name: start jenkins 
+       systemd:
+         name: jenkins
+         state: started
+         
+     - name: enable jenkins 
+       systemd:
+         name: jenkins
+         enabled: true    
+       
+     - name: Sleep for 30 seconds and continue with play
+       wait_for:
+         timeout: 30
+       tags:
+        - abc
+
+     - name: Get init password Jenkins
+       shell: cat /var/lib/jenkins/secrets/initialAdminPassword
+       changed_when: false
+       register: result
+       tags:
+        - bcd
+
+     - name: Print init password Jenkins
+       debug:
+        var: result.stdout
+       tags:
+       - cde
+     #- name: install maven repo
+      # shell: wget -O /etc/yum.repos.d/epel-apache-maven.repo \ http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo
+      
+     #- replace:
+      #  path: /etc/yum.repos.d/epel-apache-maven.repo
+       # regexp: ‘\$releasever/’
+        #replace: ‘6/’
+        #backup: yes
+
+     - name: Install dependencies
+       yum:
+         name: maven
+         state: present
+         update_cache: yes
+
+     #- name: Move settings file   
+      # copy:
+       # src: /etc/maven/settings.xml
+        #dest: /var/lib/jenkins/settings.xml
+        #remote_src: yes
+        #owner: ansible 
+
+     - name: Configuring Nexus user credentials
+       template:
+         src: settings.xml.j2
+         #dest: /var/lib/jenkins/settings.xml   
+         dest: /etc/maven/settings.xml

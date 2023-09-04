@@ -1,0 +1,43 @@
+- hosts: sonarQube_worker
+  become: yes
+  become_user: root
+  tasks:
+  - name: install java
+    yum:
+      name: java-1.8.0-openjdk-devel.x86_64
+      state: present
+
+  - name: create /opt/sonarqube directory
+    file:
+      path: /opt/sonarqube
+      state: directory
+
+  - name: Download and Unarchive/ unzip Sonarqube
+    ansible.builtin.unarchive:
+          src: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.8.zip
+          dest: /opt/sonarqube
+          remote_src: yes
+
+  - name: move sonarqube-7.8
+    command: rm -rf sonarqube-7.8.zip && mv sonarqube-7.8 sonarqube
+
+  #- name: Add a sonar user
+   # shell: useradd sonar
+
+  - name: Give sudo rights to sonar user
+    shell: echo "sonar ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/sonar
+
+  - name: Recursively change ownership and permission of a directory
+    file:
+      dest: /opt/sonarqube/
+      owner: sonar
+      group: sonar
+      mode: 0775
+      recurse: yes
+
+
+  - name: start sonarqube
+    shell: sh /opt/sonarqube/sonarqube-7.8/bin/linux-x86-64/sonar.sh start
+    become: yes
+    become_user: sonar
+             

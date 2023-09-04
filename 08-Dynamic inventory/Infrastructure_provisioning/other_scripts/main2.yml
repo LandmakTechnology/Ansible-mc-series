@@ -1,0 +1,7 @@
+---
+ - name: Add user
+   hosts: tomcat
+   become: yes
+
+   roles:
+   - user_add

@@ -13,5 +13,7 @@ variable "my_key" {
   default = "ansible-key"
 }
 
-
-
+variable "os" {
+  type    = string
+  #default = "linux"
+}

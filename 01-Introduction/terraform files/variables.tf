@@ -13,5 +13,7 @@ variable "my_key" {
   default = "demo"
 }
 
-
-
+variable "os" {
+  type    = string
+  #default = "linux"
+}

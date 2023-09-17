@@ -5,13 +5,12 @@ resource "aws_instance" "ubuntu" {
   #user_data     = file("${path.module}/ansible-install-ubuntu.sh")
   user_data = data.template_cloudinit_config.user-data.rendered
 
-  key_name      = var.my_key
+  key_name = var.my_key
 
   tags = {
     "Name" = "Ansible-Ubuntu"
   }
 }
-
 
 resource "aws_instance" "ubuntu-hosts" {
   ami           = data.aws_ami.ubuntu.id
@@ -40,10 +39,10 @@ resource "aws_instance" "rhel-hosts" {
 data "template_cloudinit_config" "user-data" {
   part {
     content_type = "text/x-shellscript"
-    content  = file("${path.module}/ansible-install-ubuntu.sh")
+    content      = file("${path.module}/ansible-install-ubuntu.sh")
   }
   part {
     content_type = "text/x-shellscript"
-    content  = file("${path.module}/vscode-install.sh")
+    content      = file("${path.module}/vscode-install.sh")
   }
 }

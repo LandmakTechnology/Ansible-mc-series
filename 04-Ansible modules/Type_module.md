@@ -34,7 +34,7 @@ a) From ansible control node to remote node \
   **$ ansible group1 -m copy -a "src=/source/file/path dest=/dest/location"** \
   **$ ansible group1 -m copy -a "src=/etc/hosts dest=/home/ansible"**
 
- b) From one location in remote node to another location in remote node \
+ b) From one location in remote node to another location in (same) remote node \
   **$ ansible db -m copy -a “src=/source/file/path dest=/dest/location remote_src=yes"**
 
   **$ ansible group1 -m copy -a "src=/etc/hosts dest=/home/ansible remote_src=yes"**

@@ -79,6 +79,8 @@ However, you can achieve similar functionality using Python or Perl to generate 
 
 **python -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(), crypt.mksalt(crypt.METHOD_CRYPT)))'**
 
+**The above Python command will prompt you to enter the desired password, and it will output the hashed password* using the crypt method.
+
  **$ ansible db -m user -a "name=Peter password=wiyiMQbLhCRUY shell=/bin/bash" -b**
 
 ## **9. Setup module**

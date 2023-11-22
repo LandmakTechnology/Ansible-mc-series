@@ -67,7 +67,7 @@ a) From ansible control node to remote node \
 
   **$ ansible all -m service -a "name=nginx state=stopped" --become  -K**
 
-## **8. User Module**
+## **8. User Module (Ansible3 00:56:18)**
  - Used to create user accounts.
  - Create a password encryption
  - Generate the password from your local environment

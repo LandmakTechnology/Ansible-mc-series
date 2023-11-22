@@ -73,6 +73,8 @@ a) From ansible control node to remote node \
  - Generate the password from your local environment
 
  **$ openssl passwd -crypt <desired_password>**
+ *On macOS, the openssl passwd -crypt command is not available by default in OpenSSL. The -crypt option is more commonly found on Linux systems.
+However, you can achieve similar functionality using Python or Perl to generate a password hash with the crypt function. Here's an example using Python:
 
  **$ ansible db -m user -a "name=Peter password=wiyiMQbLhCRUY shell=/bin/bash" -b**
 

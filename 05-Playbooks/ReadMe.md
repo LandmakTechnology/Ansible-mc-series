@@ -66,7 +66,8 @@
 ```
 ---
  - name: sonarqube playbook
-   hosts: sonarqube become: yes
+   hosts: sonarqube
+   become: yes
    tasks:
  - name: install java
    yum:

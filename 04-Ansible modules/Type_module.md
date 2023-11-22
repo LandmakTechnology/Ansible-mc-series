@@ -75,9 +75,9 @@ a) From ansible control node to remote node \
  **$ openssl passwd -crypt <desired_password>**
  
  **On macOS, the openssl passwd -crypt command is not available by default in OpenSSL. The -crypt option is more commonly found on Linux systems.
-However, you can achieve similar functionality using Python or Perl to generate a password hash with the crypt function. Here's an example using Python:*
+However, you can achieve similar functionality using Python or Perl to generate a password hash with the crypt function. Here's an example using Python:**
 
-** python -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(), crypt.mksalt(crypt.METHOD_CRYPT)))' **
+**python -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(), crypt.mksalt(crypt.METHOD_CRYPT)))'**
 
  **$ ansible db -m user -a "name=Peter password=wiyiMQbLhCRUY shell=/bin/bash" -b**
 

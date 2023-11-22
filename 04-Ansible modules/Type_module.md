@@ -82,6 +82,7 @@ However, you can achieve similar functionality using Python or Perl to generate 
 **The above Python command will prompt you to enter the desired password, and it will output the hashed password* using the crypt method.
 
  **Then to create the user and pass the decrypted password, run the following:*
+ 
  **$ ansible db -m user -a "name=Peter password=wiyiMQbLhCRUY shell=/bin/bash" -b**
 
 ## **9. Setup module**

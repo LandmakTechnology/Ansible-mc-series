@@ -90,7 +90,7 @@ However, you can achieve similar functionality using Python or Perl to generate 
 - The setup module returns detailed information about the remote systems managed by Ansible, also known as system facts.
 - To obtain the system facts for group1, run:
 
-  **$ ansible group1 -m setup**
+  **$ ansible groupName -m setup**
 
 - This will print a large amount of JSON data containing details about the remote server environment.
 - To print only the most relevant information, include the "gather_subset=min" argument as follows:

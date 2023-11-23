@@ -16,6 +16,7 @@ and for this there is a priority for this files.
   **ansible-config init --disabled > ansible.cfg**
 
 - Also you can now have a more complete file by including existing plugins:
+  
     **ansible-config init --disabled -t all > ansible.cfg**
 
 **Locations with priority(starting from top to bottom):** 

@@ -95,7 +95,7 @@ However, you can achieve similar functionality using Python or Perl to generate 
 - This will print a large amount of JSON data containing details about the remote server environment.
 - To print only the most relevant information, include the "gather_subset=min" argument as follows:
 
-  **$ ansible group1 -m setup -a "gather_subset=min"**
+  **$ ansible groupName -m setup -a "gather_subset=min"**
 
 - To print only specific items of the JSON, you can use the filter argument. This will accept a wildcard pattern used to match strings. For example, to obtain information about both the ipv4 and ipv6 network interfaces, you can use *ipv* as filter:
 

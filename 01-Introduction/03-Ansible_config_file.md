@@ -13,7 +13,7 @@
 and for this there is a priority for this files.
 - You can generate ansible.cfg by running the command
   
-    **$ ansible-config init --disabled > ansible.cfg
+    **ansible-config init --disabled > ansible.cfg
 
 **Locations with priority(starting from top to bottom):** 
 - ANSIBLE_CONFIG environment variable  

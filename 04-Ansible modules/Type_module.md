@@ -52,7 +52,7 @@ a) From ansible control node to remote node \
 - To fetch the file without a directory structure, use the flat=yes option \
   **$ ansible all -m fetch -a "src=./hosts dest=./ flat=yes"**
 
-## **6. Yum Module**
+## **6. Apt Module**
 - Used to install a package in the ansible client. \
   **$ ansible db -m apt -a "name=apache2 state=present" --become**
 

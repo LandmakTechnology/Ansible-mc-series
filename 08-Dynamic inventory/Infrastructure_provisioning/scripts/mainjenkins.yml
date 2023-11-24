@@ -1,0 +1,8 @@
+---
+ - hosts: jenkins_worker
+   become: yes
+   become_user: root
+   roles:
+   - jenkins
+   #- user_add
+   #- ssh_keygen

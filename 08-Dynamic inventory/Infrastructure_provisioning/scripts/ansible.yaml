@@ -1,0 +1,20 @@
+- hosts: ansible_worker
+  become: yes
+  become_user: root
+  tasks:
+  - name: update packages
+    yum:
+      name: "*"
+      state: latest
+  - name: install ansible
+    shell: amazon-linux-extras install ansible2 -y
+
+  #- name: create artifact directory
+   # file:
+     # path: /home/ansible/artifact/
+      #state: directory
+
+  - name: Copy ansible playbook to ansible node
+    copy:
+      src: ansible_tomcat.yaml
+      dest: .

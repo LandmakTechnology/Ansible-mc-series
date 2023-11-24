@@ -1,0 +1,29 @@
+- hosts: all
+  gather_facts: yes
+  remote_user: ansible
+  tasks:
+    - name: SSH KeyGen command
+      tags: run
+      shell: >
+        ssh-keygen -q -b 2048 -t rsa -N "" -C "creating SSH" -f ~/.ssh/id_rsa
+        creates="~/.ssh/id_rsa"
+
+    - name: fetch all public ssh keys
+      shell: cat ~/.ssh/id_rsa.pub
+      register: ssh_keys
+      tags:
+        - ssh
+
+    - name: check keys
+      debug: msg="{{ ssh_keys.stdout }}"
+      tags:
+        - ssh
+
+    - name: deploy keys on all servers
+      authorized_key: user=ansible key="{{ item[0] }}"
+      delegate_to: "{{ item[1] }}"
+      with_nested:
+        - "{{ ssh_keys.stdout }}"
+        - "{{groups['all']}}"
+      tags:
+        - ssh

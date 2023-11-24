@@ -1,0 +1,59 @@
+- hosts: nexus_worker
+  become: yes
+  become_user: root
+  tasks:
+    - name: change directory to /opt
+      command: cd /opt
+
+    - name: Install required packages
+      yum:
+        name: ['wget', 'git', 'unzip', 'java-1.8.0-openjdk-devel', 'tar', 'nano' ]
+       # name: ['wget', 'git', 'unzip', 'java-11-openjdk-devel', 'java-1.8.0-openjdk-devel', 'tar', 'nano' ]
+        state: present
+        update_cache: true
+
+    - name: create /opt/nexus directory
+      file:
+        path: /opt/nexus
+        state: directory
+
+    - name: Download and Unarchive/ unzip nexus
+      ansible.builtin.unarchive:
+              src:  http://download.sonatype.com/nexus/3/nexus-3.15.2-01-unix.tar.gz
+              dest: /opt/nexus
+              remote_src: yes
+
+    #- name: Add a nexus user
+     # shell: useradd nexus
+
+    - name: Give sudo rights to nexus user
+      shell: echo "nexus ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nexus
+
+    - name: Recursively change ownership and permission of /opt/nexus/
+      file:
+         dest: /opt/nexus/
+         owner: nexus
+         group: nexus
+         mode: 0775
+         recurse: yes
+    - name: Recursively change ownership and permission of /opt/sonatype-work
+      file:
+         dest: /opt/sonatype-work
+         owner: nexus
+         group: nexus
+         mode: 0775
+         recurse: yes
+
+    - name: Create nexus as a service
+      shell: ln -s /opt/nexus/bin/nexus /etc/init.d/nexus
+
+    - name: switch user to nexus
+      shell: echo "run_as_user=nexus" >> /opt/nexus/nexus-3.15.2-01/bin/nexus.rc
+      become: yes
+      become_user: nexus
+
+    - name: start nexus service
+      shell: sh /opt/nexus/nexus-3.15.2-01/bin/nexus start
+      become: yes
+      become_user: nexus
+

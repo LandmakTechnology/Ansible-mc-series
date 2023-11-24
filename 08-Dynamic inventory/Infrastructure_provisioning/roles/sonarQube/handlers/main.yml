@@ -1,0 +1,5 @@
+# handlers file for sonarQube
+- name: start sonarQube
+  shell: sh /opt/sonarqube/sonarqube-7.8/bin/linux-x86-64/sonar.sh start
+  become: yes
+  become_user: sonar

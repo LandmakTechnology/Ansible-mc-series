@@ -10,8 +10,17 @@ resource "null_resource" "vscode-config" {
     private_key = file("~/Downloads/AutomationKey.pem")
   }
 
+  provisioner "file" {
+    source      = "script.sh"
+    destination = "/tmp/script.sh"
+  }
+
   provisioner "remote-exec" {
-    script = "script.sh"
+    inline = [
+      "chmod +x /tmp/script.sh",
+      "sudo sed -i -e 's/\r$//' /tmp/script.sh", 
+      "sudo /tmp/script.sh",
+    ]
   }
 
   provisioner "local-exec" {

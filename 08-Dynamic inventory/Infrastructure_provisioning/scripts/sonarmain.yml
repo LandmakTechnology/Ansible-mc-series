@@ -1,0 +1,7 @@
+- name: Configure sonarQube 
+  hosts: sonarQube_worker
+  become: yes
+  become_user: root
+
+  roles:
+  - sonarQube

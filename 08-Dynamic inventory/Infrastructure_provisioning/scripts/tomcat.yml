@@ -1,0 +1,10 @@
+---
+ - name: Install and configure tomcat9
+   hosts: tomcat_worker
+   become: yes
+   gather_facts: yes
+   roles:
+     - update_repos
+     - install_java
+     - tomcat
+   #- user_add

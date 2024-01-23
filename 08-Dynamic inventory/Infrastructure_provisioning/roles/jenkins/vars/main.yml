@@ -1,0 +1,5 @@
+# vars file for jenkins
+nexus_server_ip: 52.33.179.211
+nexus_server_port: 8081
+nexus_user: nexus
+nexus_user_passwd: nexus123

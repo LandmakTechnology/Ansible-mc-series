@@ -12,7 +12,12 @@
 - But we can define ansible configuration file in different location
 and for this there is a priority for this files.
 - You can generate ansible.cfg by running the command
-    $ ansible-config init --disabled > ansible.cfg
+  
+  **ansible-config init --disabled > ansible.cfg**
+
+- Also you can now have a more complete file by including existing plugins:
+  
+    **ansible-config init --disabled -t all > ansible.cfg**
 
 **Locations with priority(starting from top to bottom):** 
 - ANSIBLE_CONFIG environment variable  

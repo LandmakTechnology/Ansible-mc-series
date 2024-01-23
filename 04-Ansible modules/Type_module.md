@@ -34,7 +34,7 @@ a) From ansible control node to remote node \
   **$ ansible group1 -m copy -a "src=/source/file/path dest=/dest/location"** \
   **$ ansible group1 -m copy -a "src=/etc/hosts dest=/home/ansible"**
 
- b) From one location in remote node to another location in remote node \
+ b) From one location in remote node to another location in (same) remote node \
   **$ ansible db -m copy -a “src=/source/file/path dest=/dest/location remote_src=yes"**
 
   **$ ansible group1 -m copy -a "src=/etc/hosts dest=/home/ansible remote_src=yes"**
@@ -67,13 +67,22 @@ a) From ansible control node to remote node \
 
   **$ ansible all -m service -a "name=nginx state=stopped" --become  -K**
 
-## **8. User Module**
+## **8. User Module (Ansible3 00:56:18)**
  - Used to create user accounts.
  - Create a password encryption
  - Generate the password from your local environment
 
  **$ openssl passwd -crypt <desired_password>**
+ 
+ **On macOS, the openssl passwd -crypt command is not available by default in OpenSSL. The -crypt option is more commonly found on Linux systems.
+However, you can achieve similar functionality using Python or Perl to generate a password hash with the crypt function. Here's an example using Python:*
 
+**python -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(), crypt.mksalt(crypt.METHOD_CRYPT)))'**
+
+**The above Python command will prompt you to enter the desired password, and it will output the hashed password* using the crypt method.
+
+ **Then to create the user and pass the decrypted password, run the following:*
+ 
  **$ ansible db -m user -a "name=Peter password=wiyiMQbLhCRUY shell=/bin/bash" -b**
 
 ## **9. Setup module**
@@ -81,12 +90,12 @@ a) From ansible control node to remote node \
 - The setup module returns detailed information about the remote systems managed by Ansible, also known as system facts.
 - To obtain the system facts for group1, run:
 
-  **$ ansible group1 -m setup**
+  **$ ansible groupName -m setup**
 
 - This will print a large amount of JSON data containing details about the remote server environment.
 - To print only the most relevant information, include the "gather_subset=min" argument as follows:
 
-  **$ ansible group1 -m setup -a "gather_subset=min"**
+  **$ ansible groupName -m setup -a "gather_subset=min"**
 
 - To print only specific items of the JSON, you can use the filter argument. This will accept a wildcard pattern used to match strings. For example, to obtain information about both the ipv4 and ipv6 network interfaces, you can use *ipv* as filter:
 

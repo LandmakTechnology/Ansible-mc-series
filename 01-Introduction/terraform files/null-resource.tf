@@ -7,7 +7,7 @@ resource "null_resource" "vscode-config" {
     host        = aws_instance.ubuntu.public_ip
     user        = "ubuntu"
     password    = ""
-    private_key = file("~/Downloads/ansible-key.pem")
+    private_key = file("~/Downloads/AutomationKey.pem")
   }
 
   provisioner "file" {
